@@ -6,12 +6,9 @@ export const CurrencyProvider = ({ children }) => {
   const [currencyOptions, setCurrencyOptions] = useState([]);
   const [base, setBase] = useState("GBP");
   const [convertTo, setConvertTo] = useState("USD");
-  const [amount, setAmount] = useState(10);
-  const [amountInFromCurrency, setAmountInFromCurrency] = useState(true);
+  const [amount, setAmount] = useState(1);
   const [exchangeRate, setExchangeRate] = useState(0);
   const [amountInFromCurrancy, setAmountInFromCurrancy] = useState(true);
-
-  console.log(exchangeRate);
 
   let fromAmount, toAmount;
 
@@ -23,20 +20,25 @@ export const CurrencyProvider = ({ children }) => {
     fromAmount = amount / exchangeRate;
   }
 
+  function onChangeCurrency(e) {
+    setBase(e);
+
+    setConvertTo(e);
+  }
+
   function handleFromAmountChange(e) {
     setAmount(e.target.value);
     setAmountInFromCurrancy(true);
   }
 
   function handleToAmountChange(e) {
-    console.log(e.target.value);
     setAmount(e.target.value);
     setAmountInFromCurrancy(false);
   }
 
   useEffect(() => {
     fetchCurrencyInfo();
-  }, []);
+  }, [convertTo, base]);
 
   function getKeyByValue(object, key) {
     return Object.values(object).find((value) => object[key] === value);
@@ -68,6 +70,8 @@ export const CurrencyProvider = ({ children }) => {
         toAmount,
         handleFromAmountChange,
         handleToAmountChange,
+        onChangeCurrency,
+        setAmountInFromCurrancy,
       }}
     >
       {children}
