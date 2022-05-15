@@ -1,11 +1,15 @@
 import React from "react";
 
-function CurrencyRow() {
+function CurrencyRow({ currencyOptions }) {
   return (
     <div>
       <input type="number" />
       <select>
-        <option value="Currency">Currency option</option>
+        {currencyOptions.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
       </select>
     </div>
   );
