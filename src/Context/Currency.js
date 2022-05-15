@@ -4,6 +4,8 @@ const CurrencyContext = createContext();
 
 export const CurrencyProvider = ({ children }) => {
   const [currencyOptions, setCurrencyOptions] = useState([]);
+  let [base, setBase] = useState("GBP");
+  let [convertTo, setConvertTo] = useState("USD");
 
   useEffect(() => {
     fetchCurrencyInfo();
@@ -11,7 +13,7 @@ export const CurrencyProvider = ({ children }) => {
 
   const fetchCurrencyInfo = async () => {
     const response = await fetch(
-      `https://v6.exchangerate-api.com/v6/5a2e0602c77412052d31744a/latest/USD`
+      `https://v6.exchangerate-api.com/v6/5a2e0602c77412052d31744a/latest/${base}`
     );
 
     const data = await response.json();
@@ -21,7 +23,9 @@ export const CurrencyProvider = ({ children }) => {
   };
 
   return (
-    <CurrencyContext.Provider value={{ currencyOptions }}>
+    <CurrencyContext.Provider
+      value={{ currencyOptions, base, convertTo, setBase, setConvertTo }}
+    >
       {children}
     </CurrencyContext.Provider>
   );

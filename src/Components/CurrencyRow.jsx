@@ -1,10 +1,10 @@
 import React from "react";
 
-function CurrencyRow({ currencyOptions }) {
+function CurrencyRow({ currencyOptions, selectedCurrency, onChangeCurrency }) {
   return (
     <div>
       <input type="number" />
-      <select>
+      <select value={selectedCurrency} onChange={onChangeCurrency}>
         {currencyOptions.map((option) => (
           <option key={option} value={option}>
             {option}
