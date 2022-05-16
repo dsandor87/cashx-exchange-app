@@ -43,6 +43,7 @@ function CurrencyRow({
 
         <FormControl
           value={amount}
+          min={0}
           type="number"
           onChange={onChangeAmount}
           aria-label="Text input with dropdown button"
